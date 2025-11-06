@@ -1,10 +1,14 @@
 import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logo from "@/assets/logo.png";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const isV2 = location.pathname === "/v2";
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -12,6 +16,11 @@ const Navigation = () => {
       element.scrollIntoView({ behavior: "smooth" });
       setIsOpen(false);
     }
+  };
+
+  const toggleVersion = () => {
+    navigate(isV2 ? "/" : "/v2");
+    window.scrollTo(0, 0);
   };
 
   return (
@@ -57,6 +66,9 @@ const Navigation = () => {
             <Button onClick={() => scrollToSection("contact")} variant="hero" size="lg">
               Get a Quote
             </Button>
+            <Button onClick={toggleVersion} variant="outline" size="lg">
+              {isV2 ? "Version 1" : "Version 2"}
+            </Button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -101,9 +113,12 @@ const Navigation = () => {
             >
               Contact
             </button>
-            <div className="px-4">
+            <div className="px-4 space-y-2">
               <Button onClick={() => scrollToSection("contact")} variant="hero" size="lg" className="w-full">
                 Get a Quote
+              </Button>
+              <Button onClick={toggleVersion} variant="outline" size="lg" className="w-full">
+                {isV2 ? "Version 1" : "Version 2"}
               </Button>
             </div>
           </div>
