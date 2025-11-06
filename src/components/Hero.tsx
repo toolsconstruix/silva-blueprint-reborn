@@ -1,16 +1,7 @@
 import { Button } from "@/components/ui/button";
-import { useEffect, useState } from "react";
 import heroImage from "@/assets/hero-house.jpg";
 
 const Hero = () => {
-  const [imageLoaded, setImageLoaded] = useState(false);
-
-  useEffect(() => {
-    const img = new Image();
-    img.src = heroImage;
-    img.onload = () => setImageLoaded(true);
-  }, []);
-
   const scrollToContact = () => {
     const element = document.getElementById("contact");
     if (element) {
@@ -23,11 +14,9 @@ const Hero = () => {
       <div
         className="absolute inset-0 z-0"
         style={{
-          backgroundImage: imageLoaded ? `url(${heroImage})` : 'none',
+          backgroundImage: `url(${heroImage})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
-          backgroundColor: imageLoaded ? 'transparent' : '#1a1a1a',
-          transition: 'background-image 0.3s ease-in-out',
         }}
       >
         <div className="absolute inset-0 bg-gradient-to-r from-primary/90 to-primary-dark/90" />
